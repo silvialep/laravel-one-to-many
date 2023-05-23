@@ -13,18 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('projects', function (Blueprint $table) {
-            $table->id();
-
-            $table->string('title', 200)->unique();
-            $table->text('description');
-            $table->text('content');
-            $table->string('slug', 200);
-
-            $table->timestamps();
+        Schema::table('projects', function (Blueprint $table) {
+            $table->string('title', 50)->change();
+            $table->string('description', 100)->change();
+            $table->string('slug', 50)->change();
         });
-
-        
     }
 
     /**
