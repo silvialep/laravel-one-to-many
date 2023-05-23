@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -59,7 +61,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin/projects/edit', compact('project'));
+        $types = Type::all();
+        return view('admin.projects.edit', compact('project', 'types'));
     }
 
     /**
@@ -75,10 +78,12 @@ class ProjectController extends Controller
 
         $this->validateForm($request);
 
-        $project->update($formData);
-        $project->save();
+        $project->slug = Str::slug($formData['title'], '-');
 
-        return redirect()->route('projects.show', $project->id);
+        $project->update($formData);
+        
+
+        return redirect()->route('admin.projects.show', $project);
     }
 
     /**
@@ -98,6 +103,7 @@ class ProjectController extends Controller
         $request->validate(
             [
                 'title' => 'required|min:20',
+                'type_name' => 'required',
                 'description' => 'required|min:100|max:1000',
                 'content' => 'required|min:500',
             ],

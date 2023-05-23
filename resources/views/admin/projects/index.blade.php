@@ -20,7 +20,13 @@
         <td>{{$project->title}}</td>
         <td>{{$project->description}}</td>
         <td>{{$project->content}}</td>
-        <td><a href="{{route('admin.types.index')}}">{{$project->type?->type_name}}</a></td>
+        <td>
+            @if(empty($project->type->type_name))
+            <span class="text-danger fst-italic">NN</span>
+            @else
+            <a href="{{route('admin.types.index')}}">{{$project->type->type_name}}</a>
+            @endif
+        </td>
         <td>{{$project->slug}}</td>
         <td>
             <a href="{{route('admin.projects.show', $project->slug)}}"><i class="fa-solid fa-magnifying-glass"></i></a>
