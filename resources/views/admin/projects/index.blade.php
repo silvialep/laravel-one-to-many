@@ -8,6 +8,7 @@
     <th scope="col">Titolo</th>
     <th scope="col">Descrizione</th>
     <th scope="col">Contenuto</th>
+    <th scope="col">Tipologia</th>
     <th scope="col">Slug</th>
     <th scope="col">Comandi</th>
   </thead>
@@ -19,6 +20,7 @@
         <td>{{$project->title}}</td>
         <td>{{$project->description}}</td>
         <td>{{$project->content}}</td>
+        <td><a href="{{route('admin.types.index')}}">{{$project->type?->type_name}}</a></td>
         <td>{{$project->slug}}</td>
         <td>
             <a href="{{route('admin.projects.show', $project->slug)}}"><i class="fa-solid fa-magnifying-glass"></i></a>
