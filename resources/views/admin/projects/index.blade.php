@@ -23,7 +23,7 @@
 
     @foreach($projects as $project)
     <tr>
-        <td>{{$project->title}}</td>
+        <td style="color:deeppink; text-transform:uppercase; font-weight:bold">{{$project->title}}</td>
         <td>{{$project->description}}</td>
         <td>{{$project->content}}</td>
         <td>
@@ -37,7 +37,29 @@
         <td>
             <a href="{{route('admin.projects.show', $project->slug)}}"><i class="fa-solid fa-magnifying-glass"></i></a>
             <a class="text-success" href="{{route('admin.projects.edit', $project->slug)}}"><i class="fa-solid fa-pen"></i></a>
-            
+            {{-- <a href="{{route('admin.projects.destroy', $project->slug)}}" class="text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-trash"></i></a>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Elimina il progetto</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                    <div class="modal-body">
+                        Sei sicuro di voler eliminare il progetto "{{$project->title}}"
+                    </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                            <form action="{{route('admin.projects.destroy', $project)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            
+                            <button type="submit" class="btn btn-danger">Elimina il progetto</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div> --}}
         </td>
     </tr>
     @endforeach

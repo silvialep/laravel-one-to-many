@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
+use Illuminate\Support\Str;
 
 class TypeController extends Controller
 {
@@ -26,7 +29,7 @@ class TypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.types.create');
     }
 
     /**
@@ -37,7 +40,19 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $formData = $request->all();
+
+        $this->validateForm($formData);
+
+        $formData['slug'] = Str::slug($formData['type_name'], '-');
+
+        $newType = new Type();
+
+        $newType->fill($formData);
+
+        $newType->save();
+
+        return redirect()->route('admin.types.show', $newType);
     }
 
     /**
@@ -59,7 +74,7 @@ class TypeController extends Controller
      */
     public function edit(Type $type)
     {
-        //
+        return view('admin.types.edit', compact('type'));
     }
 
     /**
@@ -71,7 +86,15 @@ class TypeController extends Controller
      */
     public function update(Request $request, Type $type)
     {
-        //
+        $formData = $request->all();
+
+        $this->validateForm($formData);
+
+        $formData['slug'] = Str::slug($formData['type_name'], '-');
+
+        $type->update($formData);
+
+        return redirect()->route('admin.types.show', $type);
     }
 
     /**
@@ -82,6 +105,19 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
-        //
+        $type->delete();
+        return redirect()->route('admin.types.index');
+    }
+
+    private function validateForm($formData)
+    {
+        $validator = Validator::make($formData, [
+            'type_name' => 'max:50|required|unique:App\Models\Type,type_name',
+        ], [
+            'name.max' => 'Il nome della tipologia deve essere al massimo di :max caratteri',
+            'name.required' => 'Il nome della tipologia è richiesto',
+            'name.unique' => 'È già presente una tipologia con questo nome',
+        ])->validate();
+        return $validator;
     }
 }
