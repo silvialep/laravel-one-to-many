@@ -2,11 +2,13 @@
 
 @section('content')
 
+<h2 class="text-center mt-5">Tutte le categorie</h2>
 
 <table class="table mt-3">
     <thead>
         <th>Nome</th>
         <th>Descrizione</th>
+        <th>Slug</th>
         <th>Articoli</th>
     </thead>
     <tbody>
@@ -14,12 +16,13 @@
         <tr>
             <td>{{$type->type_name}}</td>
             <td>{{$type->description}}</td>
+            <td>{{$type->slug}}</td>
             @if(count($type->projects) > 0)
             <td>
                 <ul style="padding:0">
                     @foreach($type->projects as $item)
                     <li>
-                    <a href="{{route('admin.projects.show', $item)}}">{{$item->title}}</a>
+                    <a href="{{route('admin.projects.show', $item->slug)}}">{{$item->title}}</a>
                     </li>
                     @endforeach
 

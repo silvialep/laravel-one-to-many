@@ -25,7 +25,7 @@ class TypeSeeder extends Seeder
             $newType = new Type();
 
             $newType->type_name = $type;
-            $newType->slug = Str::slug($newType->name, '-');
+            $newType->slug = Str::slug($newType->type_name, '-');
             $newType->description = $faker->text(100);
 
             $newType->save();

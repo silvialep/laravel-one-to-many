@@ -2,6 +2,7 @@
 
 @section('content')
 
+<h2 class="text-center mt-5">I miei progetti</h2>
 
 <table class="mt-5 table table-hover">
   <thead>
@@ -24,7 +25,7 @@
             @if(empty($project->type->type_name))
             <span class="text-danger fst-italic">NN</span>
             @else
-            <a href="{{route('admin.types.index')}}">{{$project->type->type_name}}</a>
+            <a href="{{route('admin.types.show', $project->type)}}">{{$project->type->type_name}}</a>
             @endif
         </td>
         <td>{{$project->slug}}</td>
