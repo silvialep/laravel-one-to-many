@@ -8,7 +8,6 @@
     <thead>
         <th>Nome</th>
         <th>Descrizione</th>
-        <th>Slug</th>
         <th>Articoli</th>
     </thead>
     <tbody>
@@ -16,7 +15,6 @@
         <tr>
             <td>{{$type->type_name}}</td>
             <td>{{$type->description}}</td>
-            <td>{{$type->slug}}</td>
             @if(count($type->projects) > 0)
             <td>
                 <ul style="padding:0">
