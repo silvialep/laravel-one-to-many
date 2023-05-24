@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class ProjectController extends Controller
@@ -76,7 +77,7 @@ class ProjectController extends Controller
     {
         $formData = $request->all();
 
-        $this->validateForm($request);
+        $this->validateForm($formData);
 
         $project->slug = Str::slug($formData['title'], '-');
 
@@ -84,6 +85,8 @@ class ProjectController extends Controller
         
 
         return redirect()->route('admin.projects.show', $project);
+
+
     }
 
     /**
@@ -98,26 +101,26 @@ class ProjectController extends Controller
         return redirect()->route('admin.projects.index');
     }
 
-    private function validateForm($request)
+    private function validateForm($formData)
     {
-        $request->validate(
+        $validator = Validator::make($formData, 
             [
                 'title' => 'required|min:20',
-                'type_name' => 'required',
-                'description' => 'required|min:100|max:1000',
-                'content' => 'required|min:500',
+                'type_id' => 'required',
+                'description' => 'required',
+                'content' => 'required',
             ],
             [
                 'title.required' => 'Il campo del titolo è richiesto',
                 'title.min' => 'Il campo del titolo deve avere almeno :min caratteri',
+                'type_id.required' => 'La tipologia è richiesta',
                 'description.required' => 'Il campo della descrizione è richiesto',
-                'description.max' => 'Il campo della descrizione può avere al massimo :max caratteri',
-                'description.min' => 'Il campo della descrizione deve avere almeno :min caratteri',
                 'content.required' => 'Il contenuto è richiesto',
-                'content.min' => 'Il contenuto deve avere almeno :min caratteri',
 
             ]
-        );
+        )->validate();
+        return $validator;
 
     }
+    
 }

@@ -4,11 +4,11 @@
 
 <h2 class="text-center mt-5">Tutte le categorie</h2>
 
-<table class="table mt-3">
+<table class="table mt-3" style="height: calc(100vh - 350px)">
     <thead>
         <th>Nome</th>
         <th>Descrizione</th>
-        <th>Articoli</th>
+        <th>Progetti</th>
     </thead>
     <tbody>
         @foreach($types as $type)

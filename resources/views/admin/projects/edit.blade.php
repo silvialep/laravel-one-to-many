@@ -2,6 +2,7 @@
 
 @section('content')
 
+<h2 class="mt-5">Modifica il progetto</h2>
 
 <div class="container form-container py-5">
     <form action="{{route('admin.projects.update', $project->slug)}}" method="POST">

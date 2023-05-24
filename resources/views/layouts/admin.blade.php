@@ -71,6 +71,8 @@
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('admin.dashboard.home') }}">{{__('Dashboard')}}</a>
+                                <a class="dropdown-item" href="{{ route('admin.projects.index') }}">{{__('Progetti')}}</a>
+                                <a class="dropdown-item" href="{{ route('admin.types.index') }}">{{__('Tipologie')}}</a>
                                 <a class="dropdown-item" href="{{ url('profile') }}">{{__('Profile')}}</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
