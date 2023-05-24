@@ -29,7 +29,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        $types = Type::all();
+
+        return view('admin.projects.create', compact('types'));
     }
 
     /**
@@ -40,7 +42,19 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $formData = $request->all();
+
+        $this->validateForm($formData);
+
+        $project = new Project();
+
+        $project->fill($formData);
+        
+        $project->slug = Str::slug($project->title, '-');
+
+        $project->save();
+
+        return redirect()->route('admin.projects.show', $project);
     }
 
     /**
@@ -105,15 +119,14 @@ class ProjectController extends Controller
     {
         $validator = Validator::make($formData, 
             [
-                'title' => 'required|min:20',
-                'type_id' => 'required',
+                'title' => 'required',
+                'type_id' => 'nullable|exists:types,id',
                 'description' => 'required',
                 'content' => 'required',
             ],
             [
                 'title.required' => 'Il campo del titolo è richiesto',
-                'title.min' => 'Il campo del titolo deve avere almeno :min caratteri',
-                'type_id.required' => 'La tipologia è richiesta',
+                'type_id.exists' => 'La tipologia deve essere una esistente',
                 'description.required' => 'Il campo della descrizione è richiesto',
                 'content.required' => 'Il contenuto è richiesto',
 

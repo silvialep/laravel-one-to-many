@@ -2,7 +2,12 @@
 
 @section('content')
 
-<h2 class="text-center mt-5">I miei progetti</h2>
+<div class="d-flex justify-content-between aling-items-center mt-5">
+    <h2>I miei progetti</h2>
+    <a href="{{route('admin.projects.create')}}" class="btn btn-success d-flex align-items-center">Nuovo progetto</a>
+</div>
+
+
 
 <table class="mt-5 table table-hover">
   <thead>
@@ -32,29 +37,6 @@
         <td>
             <a href="{{route('admin.projects.show', $project->slug)}}"><i class="fa-solid fa-magnifying-glass"></i></a>
             <a class="text-success" href="{{route('admin.projects.edit', $project->slug)}}"><i class="fa-solid fa-pen"></i></a>
-            <form action="{{route('admin.projects.destroy', $project->slug)}}" method="POST">
-            @csrf
-            @method('DELETE')
-            <a class="text-danger" data-bs-toggle="modal" data-bs-target="#saveModal" href="{{route('admin.projects.destroy', $project->slug)}}"><i class="fa-solid fa-trash"></i></a>
-            
-            <div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="saveeModalLabel">Operazione richiesta</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                        Sei veramente sicuro di voler eliminare il progetto?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Torna indietro</button>
-                            <button type="submit" class="btn btn-primary">Elimina</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
             
         </td>
     </tr>
